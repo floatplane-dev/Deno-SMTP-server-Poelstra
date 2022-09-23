@@ -11,7 +11,7 @@ jobs:
     env:
       PRIVATE_KEY: ${{secrets.SSH_FRANKFURT}}
       URL: bot@frankfurt.floatplane.dev
-      ROOT: /var/www/huisartspoelstra.nl
+      ROOT: /var/www/api.huisartspoelstra.nl
     steps:
       - uses: actions/checkout@v2
 
@@ -34,7 +34,4 @@ jobs:
       - run: ssh $URL "cd $ROOT; git checkout production; git pull"
 
       # Install Node and dependencies
-      - run: ssh $URL "cd $ROOT; nvm install; yarn install"
-
-      # Build Ember app, once built Fastboot restarts
-      - run: ssh $URL "cd $ROOT; yarn build"
+      - run: ssh $URL "cd $ROOT; pm2 start"
