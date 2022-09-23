@@ -17,7 +17,11 @@ This SMTP backend server waits for form submissions from the website
 
 ### For developers
 
-To run the server:
+Development is done on the `development` Git branch.
+
+Commits pushed to the `production` branch are deployed automatically with Github Actions.
+
+To run the development server:
 
 ```
 deno run --allow-env --allow-read --allow-net --unstable app/server.ts
@@ -29,9 +33,11 @@ To run the Deno linter:
 deno lint
 ```
 
-Development is done on the `development` Git branch.
+To daemonise the Deno server in production, use PM2:
 
-Commits pushed to the `production` branch are deployed automatically with Github Actions.
+```
+pm2 start
+```
 
 ### Questions?
 
