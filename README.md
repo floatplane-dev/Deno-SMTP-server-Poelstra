@@ -3,14 +3,15 @@
 This SMTP backend server waits for form submissions from the website
 [huisartspoelstra.nl](https://huisartspoelstra.nl) and emails the results to team Poelstra.
 
-Built with:
+### Built with / on
 
 - Deno 🦕
 - Typescript 🌱
 - Nginx 🏎️
 - Debian 🐧
+- PM2 ✨
 
-Built by:
+### Built by
 
 - Jan Werkhoven ([email](mailto:jw@floatplane.dev), [GitHub](https://github.com/floatplane-dev), [Linkedin](https://www.linkedin.com/in/jan-werkhoven))
 
@@ -27,6 +28,10 @@ To run the Deno linter:
 ```
 deno lint
 ```
+
+Development is done on the `development` Git branch.
+
+Commits pushed to the `production` branch are deployed automatically with Github Actions.
 
 ### Questions?
 
