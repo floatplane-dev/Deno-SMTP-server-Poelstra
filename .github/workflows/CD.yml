@@ -15,24 +15,23 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - run: echo "success"
-      # # Create directory for SSH
-      # - run: mkdir ~/.ssh
-      #
-      # # Add the private key of the restricted bot user on the remote server
-      # - run: 'echo "$PRIVATE_KEY" > ~/.ssh/$URL'
-      #
-      # # Configure SSH to always use the custom key, so we don't have to do ssh -i
-      # - run: 'echo "IdentityFile ~/.ssh/$URL" > ~/.ssh/config'
-      #
-      # # Add the remote server to trusted hosts
-      # - run: ssh-keyscan -H frankfurt.floatplane.dev > ~/.ssh/known_hosts
-      #
-      # # Set all SSH file permissions
-      # - run: chmod 0755 ~/.ssh/; chmod 600 ~/.ssh/$URL; chmod 644 ~/.ssh/known_hosts
-      #
-      # # First, check out the latest production branch on the remote.
-      # - run: ssh $URL "cd $ROOT; git checkout production; git pull"
-      #
-      # # Install Node and dependencies
-      # - run: ssh $URL "cd $ROOT; pm2 start"
+      # Create directory for SSH
+      - run: mkdir ~/.ssh
+
+      # Add the private key of the restricted bot user on the remote server
+      - run: 'echo "$PRIVATE_KEY" > ~/.ssh/$URL'
+
+      # Configure SSH to always use the custom key, so we don't have to do ssh -i
+      - run: 'echo "IdentityFile ~/.ssh/$URL" > ~/.ssh/config'
+
+      # Add the remote server to trusted hosts
+      - run: ssh-keyscan -H frankfurt.floatplane.dev > ~/.ssh/known_hosts
+
+      # Set all SSH file permissions
+      - run: chmod 0755 ~/.ssh/; chmod 600 ~/.ssh/$URL; chmod 644 ~/.ssh/known_hosts
+
+      # First, check out the latest production branch on the remote.
+      - run: ssh $URL "cd $ROOT; git checkout production; git pull"
+
+      # Install Node and dependencies
+      - run: ssh $URL "cd $ROOT; pm2 start"
