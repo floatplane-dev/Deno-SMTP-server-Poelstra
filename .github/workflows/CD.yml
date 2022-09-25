@@ -30,7 +30,10 @@ jobs:
       # Set all SSH file permissions
       - run: chmod 0755 ~/.ssh/; chmod 600 ~/.ssh/$URL; chmod 644 ~/.ssh/known_hosts
 
-      # First, check out the latest production branch on the remote.
+      # First, do a sanity check
+      - run: ssh $URL "cd $ROOT; ls -la"
+
+      # Then, check out the latest production branch on the remote.
       - run: ssh $URL "cd $ROOT; git checkout production; git pull"
 
       # Install Node and dependencies
