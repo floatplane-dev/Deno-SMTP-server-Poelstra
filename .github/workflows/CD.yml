@@ -34,4 +34,4 @@ jobs:
       - run: ssh $URL "cd $ROOT; git checkout production; git pull"
 
       # Install Node and dependencies
-      - run: ssh $URL "cd $ROOT; pm2 restart"
+      - run: ssh $URL "cd $ROOT; pm2 start"
