@@ -1,10 +1,10 @@
 module.exports = {
   apps: [
     {
-      name: "app",
-      script: "./deno.js",
+      name: "Deno SMTP Poelstra",
+      script: "./app/server.ts",
       interpreter: "deno",
-      interpreterArgs: "run --allow-net --allow-read",
+      interpreterArgs: "run --allow-env --allow-read --allow-net --unstable",
     },
   ],
 };
