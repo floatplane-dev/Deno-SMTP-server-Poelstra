@@ -22,9 +22,9 @@ async function handler(req: Request): Promise<Response> {
     if (url.pathname === "/submit-contact-form") {
       const body: any = await req.text();
       const data: any = JSON.parse(body);
-      const { name, email, message, language } = data;
+      const { name, email, message } = data;
 
-      return sendContactEmails(name, email, message, language);
+      return sendContactEmails(name, email, message);
     }
 
     // if (url.pathname === "/submit-new-patient-form") {
