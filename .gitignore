@@ -1,3 +1,4 @@
 .env
 data/metrics.json
 data/contact-requests.json
+data/registration-requests.json
