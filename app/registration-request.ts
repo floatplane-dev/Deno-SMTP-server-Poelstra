@@ -3,26 +3,27 @@ import { SMTPClient } from "https://deno.land/x/denomailer/mod.ts";
 import { response, getJson, writeJson } from "./helpers.ts";
 import { existsSync } from "https://deno.land/std/fs/mod.ts";
 
-export async function sendContactEmails(
-  name: string,
+export async function sendRegistrationEmail(
+  firstName: string,
+  lastName: string,
+  gender: string,
+  dob: string,
+  address: string,
   email: string,
-  message: string
+  phone: string,
+  agreed1: boolean,
+  agreed2: boolean
 ): Promise<Response> {
-  console.log("sendContactEmails()");
-  console.log({ name });
+  console.log("sendRegistrationEmail()");
+  console.log({ firstName });
+  console.log({ lastName });
+  console.log({ gender });
+  console.log({ dob });
+  console.log({ address });
   console.log({ email });
-  console.log({ message });
-
-  // EMAIL SANITY CHECK
-
-  if (!email) {
-    return response(400, { error: "no email" });
-  }
-  const regex = /^\S+@\S+\.\S+$/g;
-  const emailIsSane = regex.test(email);
-  if (!emailIsSane) {
-    return response(400, { error: "insane email" });
-  }
+  console.log({ phone });
+  console.log({ agreed1 });
+  console.log({ agreed2 });
 
   // GET AND INCREMENT THE COUNTER
 
@@ -31,25 +32,31 @@ export async function sendContactEmails(
     ? await getJson(path1)
     : { contactCount: 0, registrationCount: 0 };
   console.log({ metrics });
-  const count: number = metrics.contactCount + 1;
+  const count: number = metrics.registrationCount + 1;
   console.log({ count });
-  metrics.contactCount = count;
+  metrics.registrationCount = count;
   await writeJson(path1, metrics);
 
   // STORE THE REQUEST
 
-  const path2: string = "./data/contact-requests.json";
-  const contactRequests: any = (await existsSync(path2))
+  const path2: string = "./data/registration-requests.json";
+  const registrationRequests: any = (await existsSync(path2))
     ? await getJson(path2)
     : [];
-  contactRequests.push({
+  registrationRequests.push({
     id: count,
     date: new Date(),
-    name,
+    firstName,
+    lastName,
+    gender,
+    dob,
+    address,
     email,
-    message,
+    phone,
+    agreed1,
+    agreed2,
   });
-  await writeJson(path2, contactRequests);
+  await writeJson(path2, registrationRequests);
 
   // PREPARE SMTP
 
@@ -71,15 +78,25 @@ export async function sendContactEmails(
     from: "Jan Werkhoven <jw@floatplane.dev>",
     to: "Team Poelstra <fpoelstrahuisarts@hotmail.com>",
     bcc: "Jan Werkhoven <jw@floatplane.dev>",
-    subject: `Website contactverzoek #${count}`,
+    subject: `Nieuwe patiënt #${count}`,
     content: "auto",
     html: `
       <p>Beste team Poelstra,</p>
-      <p>Een bezoeker heeft op <a href="https://huisartspoelstra.nl">huisartspoelstra.nl</a> zonet jullie contactformulier ingevuld met de volgende gegevens:</p>
+      <p>Een bezoeker heeft op <a href="https://huisartspoelstra.nl">huisartspoelstra.nl</a> zonet jullie inschrijvingsformulier ingevuld met de volgende gegevens:</p>
       <ul>
-        <li>Naam: ${name}</li>
+        <li>Voornaam: ${firstName}</li>
+        <li>Achternaam: ${lastName}</li>
+        <li>Geslacht: ${gender}</li>
+        <li>Geboortedatum: ${dob}</li>
+        <li>Adres: ${address}</li>
         <li>Email: <a href="mailto:${email}" target="_blank">${email}</a></li>
-        <li>Bericht: ${message}</li>
+        <li>Telefoon: ${phone}</li>
+        <li>Ik ga akkoord met inschrijving bij Dr Poelstra en geef tevens toestemming om mijn dossier op te vragen bij mijn vorige zorgverlener: ${
+          agreed1 ? "JA" : "NEE"
+        }</li>
+        <li>Ik ga akkoord dat Dr Poelstra mijn gegevens verwerkt die benodigd zijn voor inschrijving: ${
+          agreed2 ? "JA" : "NEE"
+        }</li>
         <li>ID: #${count}</li>
       </ul>
       <p>Gelieve deze persoon spoedig te beantwoorden.</p>

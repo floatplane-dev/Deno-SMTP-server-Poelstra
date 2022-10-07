@@ -1,10 +1,11 @@
 import { serve } from "https://deno.land/std@0.156.0/http/server.ts";
 import { response } from "./helpers.ts";
 import { sendContactEmails } from "./contact-request.ts";
-// import { sendRegistrationEmails } from "./contact-request.ts";
+import { sendRegistrationEmail } from "./registration-request.ts";
 
 async function handler(req: Request): Promise<Response> {
   const url = new URL(req.url);
+  console.log(`${req.referrer}`);
   console.log(`${req.method} ${req.url}`);
 
   if (req.method === "OPTIONS") {
@@ -27,9 +28,32 @@ async function handler(req: Request): Promise<Response> {
       return sendContactEmails(name, email, message);
     }
 
-    // if (url.pathname === "/submit-new-patient-form") {
-    //   return sendRegistrationEmails(req);
-    // }
+    if (url.pathname === "/submit-registration-form") {
+      const body: any = await req.text();
+      const data: any = JSON.parse(body);
+      const {
+        firstName,
+        lastName,
+        gender,
+        dob,
+        address,
+        email,
+        phone,
+        agreed1,
+        agreed2,
+      } = data;
+      return sendRegistrationEmail(
+        firstName,
+        lastName,
+        gender,
+        dob,
+        address,
+        email,
+        phone,
+        agreed1,
+        agreed2
+      );
+    }
 
     return response(404, { error: "invalid path" });
   }
