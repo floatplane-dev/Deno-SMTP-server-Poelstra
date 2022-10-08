@@ -1,9 +1,11 @@
 # SMTP server Poelstra
 
+#### What
+
 This SMTP backend server waits for form submissions from the website
 [huisartspoelstra.nl](https://huisartspoelstra.nl) and emails the results to team Poelstra.
 
-### Built with / on
+#### Built with
 
 - Deno 🦕
 - Typescript 🌱
@@ -11,11 +13,13 @@ This SMTP backend server waits for form submissions from the website
 - Debian 🐧
 - PM2 ✨
 
-### Built by
+#### Built by
 
 - Jan Werkhoven ([email](mailto:jw@floatplane.dev), [GitHub](https://github.com/floatplane-dev), [Linkedin](https://www.linkedin.com/in/jan-werkhoven))
 
-### For developers
+---
+
+#### For developers
 
 Development is done on the `development` Git branch.
 
@@ -39,8 +43,12 @@ To daemonise the Deno server in production, use PM2:
 pm2 start
 ```
 
-### Questions?
+---
 
-Ask team Floatplane! ⛵  
+#### Questions?
+
+Ask team Floatplane!
+
 [hello@floatplane.dev](mailto:hello@floatplane.dev)  
 [www.floatplane.dev](floatplane.dev)
+
