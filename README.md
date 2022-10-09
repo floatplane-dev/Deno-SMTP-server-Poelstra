@@ -15,7 +15,7 @@ This SMTP backend server waits for form submissions from the website
 
 #### Built by
 
-- Jan Werkhoven ([email](mailto:jw@floatplane.dev), [GitHub](https://github.com/floatplane-dev), [Linkedin](https://www.linkedin.com/in/jan-werkhoven))
+- Jan Werkhoven ([email](mailto:jw@floatplane.dev), [GitHub](https://github.com/janwerkhoven), [Linkedin](https://www.linkedin.com/in/jan-werkhoven))
 
 ---
 
