@@ -39,6 +39,7 @@ async function handler(req: Request): Promise<Response> {
         address,
         email,
         phone,
+        bsn,
         agreed1,
         agreed2,
       } = data;
@@ -50,6 +51,7 @@ async function handler(req: Request): Promise<Response> {
         address,
         email,
         phone,
+        bsn,
         agreed1,
         agreed2
       );

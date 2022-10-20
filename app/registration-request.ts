@@ -11,6 +11,7 @@ export async function sendRegistrationEmail(
   address: string,
   email: string,
   phone: string,
+  bsn: string,
   agreed1: boolean,
   agreed2: boolean
 ): Promise<Response> {
@@ -22,6 +23,7 @@ export async function sendRegistrationEmail(
   console.log({ address });
   console.log({ email });
   console.log({ phone });
+  console.log({ bsn });
   console.log({ agreed1 });
   console.log({ agreed2 });
 
@@ -53,6 +55,7 @@ export async function sendRegistrationEmail(
     address,
     email,
     phone,
+    bsn,
     agreed1,
     agreed2,
   });
@@ -91,6 +94,7 @@ export async function sendRegistrationEmail(
         <li>Adres: ${address}</li>
         <li>Email: <a href="mailto:${email}" target="_blank">${email}</a></li>
         <li>Telefoon: ${phone}</li>
+        <li>BSN: ${bsn}</li>
         <li>Ik ga akkoord met inschrijving bij Dr Poelstra en geef tevens toestemming om mijn dossier op te vragen bij mijn vorige zorgverlener: ${
           agreed1 ? "JA" : "NEE"
         }</li>
