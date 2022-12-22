@@ -29,7 +29,7 @@ Commits pushed to the `production` branch are deployed automatically with Github
 To run the development server:
 
 ```
-deno run --allow-env --allow-read --allow-net --unstable app/server.ts
+deno run --allow-env --allow-read --allow-net  --allow-run=git --unstable app/server.ts
 ```
 
 To run the Deno linter:
@@ -52,4 +52,3 @@ Ask team Floatplane!
 
 [hello@floatplane.dev](mailto:hello@floatplane.dev)  
 [www.floatplane.dev](floatplane.dev)
-

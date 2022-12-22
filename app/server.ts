@@ -2,6 +2,7 @@ import { serve } from "https://deno.land/std@0.156.0/http/server.ts";
 import { response } from "./helpers.ts";
 import { sendContactEmails } from "./contact-request.ts";
 import { sendRegistrationEmail } from "./registration-request.ts";
+import { branch, commit } from "https://deno.land/x/ci/mod.ts";
 
 async function handler(req: Request): Promise<Response> {
   const url = new URL(req.url);
@@ -13,7 +14,7 @@ async function handler(req: Request): Promise<Response> {
     const headers = {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Headers": "*",
-      "Access-Control-Allow-Methods": "OPTIONS, POST",
+      "Access-Control-Allow-Methods": "OPTIONS, GET, POST",
     };
 
     return response(200, body, headers);
@@ -59,7 +60,17 @@ async function handler(req: Request): Promise<Response> {
 
     return response(404, { error: "invalid path" });
   }
+
+  if (req.method === "GET") {
+    if (url.pathname === "/sanity-check") {
+      return response(200, {
+        sanity: "smooth sailing ⛵",
+        git: { branch, commit },
+      });
+    }
+  }
+
   return response(403, { error: "invalid method" });
 }
 
-serve(handler, { port: 5000 });
+serve(handler, { port: 4242, reusePort: true });
