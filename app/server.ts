@@ -60,4 +60,4 @@ async function handler(req: Request): Promise<Response> {
   return response(403, { error: "invalid method" });
 }
 
-serve(handler, { port: 4242 });
+serve(handler, { port: 5000 });
