@@ -29,7 +29,7 @@ Commits pushed to the `production` branch are deployed automatically with Github
 To run the development server:
 
 ```
-deno run --allow-env --allow-read --allow-net  --allow-run=git --unstable app/server.ts
+deno run --allow-env --allow-read --allow-net  --allow-run=git --unstable app/start-server.ts
 ```
 
 To run the Deno linter:
