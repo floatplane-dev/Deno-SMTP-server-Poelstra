@@ -1,9 +1,15 @@
+import * as log from "https://deno.land/std@0.172.0/log/mod.ts";
+
 export function response(status: number, _body: any, _headers?: any): Response {
   const body: string = JSON.stringify(_body);
   const headers: any = _headers || {
     "Access-Control-Allow-Origin": "*",
     "content-type": "application/json; charset=utf-8",
   };
+
+  log.debug(`response: ${status} ${body}`);
+  log.debug("------");
+
   return new Response(body, { status, headers });
 }
 
