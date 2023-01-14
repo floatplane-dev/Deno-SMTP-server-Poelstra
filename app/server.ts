@@ -93,9 +93,9 @@ const onRequest = async function (req: Request): Promise<Response> {
   return response(403, { error: "invalid method" });
 };
 
-const server = new Server({ port: 4243, handler: onRequest });
+const server = new Server({ port: 4244, handler: onRequest });
 
-log.debug("server listening on http://localhost:4243");
+log.debug("server listening on http://localhost:4244");
 
 await server.listenAndServe().catch((error) => {
   log.error(error);
