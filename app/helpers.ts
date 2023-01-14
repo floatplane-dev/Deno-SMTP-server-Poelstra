@@ -1,4 +1,4 @@
-export function response(status: number, _body: any, _headers: any): Response {
+export function response(status: number, _body: any, _headers?: any): Response {
   const body: string = JSON.stringify(_body);
   const headers: any = _headers || {
     "Access-Control-Allow-Origin": "*",

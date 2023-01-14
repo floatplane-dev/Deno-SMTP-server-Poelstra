@@ -1,13 +1,14 @@
-import { serve } from "https://deno.land/std@0.156.0/http/server.ts";
+import { Server } from "https://deno.land/std@0.172.0/http/server.ts";
 import { response } from "./helpers.ts";
 import { sendContactEmails } from "./contact-request.ts";
 import { sendRegistrationEmail } from "./registration-request.ts";
 import { branch, commit } from "https://deno.land/x/ci/mod.ts";
 
-async function handler(req: Request): Promise<Response> {
+const onRequest = async function (req: Request): Promise<Response> {
   const url = new URL(req.url);
-  console.log(`${req.referrer}`);
-  console.log(`${req.method} ${req.url}`);
+
+  console.log(`------`);
+  console.log(`request: ${req.method} ${req.url}`);
 
   if (req.method === "OPTIONS") {
     const body = JSON.stringify({ message: "pass" });
@@ -71,6 +72,10 @@ async function handler(req: Request): Promise<Response> {
   }
 
   return response(403, { error: "invalid method" });
-}
+};
 
-serve(handler, { port: 4243, reusePort: true });
+const server = new Server({ port: 4243, handler: onRequest });
+
+console.log("server listening on http://localhost:4243");
+
+await server.listenAndServe();
