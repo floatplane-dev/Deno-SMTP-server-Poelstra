@@ -73,4 +73,4 @@ async function handler(req: Request): Promise<Response> {
   return response(403, { error: "invalid method" });
 }
 
-serve(handler, { port: 4242, reusePort: true });
+serve(handler, { port: 4243, reusePort: true });
