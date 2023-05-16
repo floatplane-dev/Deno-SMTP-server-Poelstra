@@ -1,0 +1,5 @@
+name: Sanity check Poelstra (Bash)
+slug: sanity_check_poelstra_bash
+shell:
+  entrypoint: sanity_check_poelstra_bash.sh
+timeout: 3600
