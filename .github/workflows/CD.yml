@@ -9,32 +9,26 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     env:
-      PRIVATE_KEY: ${{secrets.SSH_AMSTERDAM}}
+      SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+      SSH: ${{secrets.SSH_AMSTERDAM}}
+      PASS: ${{secrets.SSH_AMSTERDAM_PASS}}
       URL: admin@amsterdam.server.floatplane.dev
       ROOT: /var/www/api.huisartspoelstra.nl
     steps:
       - uses: actions/checkout@v2
-
-      # Create directory for SSH
       - run: mkdir ~/.ssh
-
-      # Add the private key of the restricted bot user on the remote server
-      - run: 'echo "$PRIVATE_KEY" > ~/.ssh/$URL'
-
-      # Configure SSH to always use the custom key, so we don't have to do ssh -i
+      - run: 'echo "$SSH" > ~/.ssh/$URL'
       - run: 'echo "IdentityFile ~/.ssh/$URL" > ~/.ssh/config'
-
-      # Add the remote server to trusted hosts
       - run: ssh-keyscan -H amsterdam.server.floatplane.dev > ~/.ssh/known_hosts
-
-      # Set all SSH file permissions
       - run: chmod 0755 ~/.ssh/; chmod 600 ~/.ssh/$URL; chmod 644 ~/.ssh/known_hosts
+      - name: Setup SSH passphrase
+        run: |
+          ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+          echo 'echo $PASS' > ~/.ssh_askpass && chmod +x ~/.ssh_askpass
+          echo "$SSH" | tr -d '\r' | DISPLAY=None SSH_ASKPASS=~/.ssh_askpass ssh-add - >/dev/null
 
-      # First, do a sanity check
-      - run: ssh $URL "cd $ROOT; ls -la"
-
-      # Then, check out the latest production branch on the remote.
+      # Check out the latest production branch on the remote.
       - run: ssh $URL "cd $ROOT; git checkout production; git pull"
 
-      # Install Node and dependencies
+      # Restart Deno with PM2
       - run: ssh $URL "cd $ROOT; pm2 start"
