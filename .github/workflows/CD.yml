@@ -9,8 +9,8 @@ jobs:
     name: Deploy
     runs-on: ubuntu-latest
     env:
-      PRIVATE_KEY: ${{secrets.SSH_FRANKFURT}}
-      URL: bot@frankfurt.floatplane.dev
+      PRIVATE_KEY: ${{secrets.SSH_AMSTERDAM}}
+      URL: admin@amsterdam.server.floatplane.dev
       ROOT: /var/www/api.huisartspoelstra.nl
     steps:
       - uses: actions/checkout@v2
