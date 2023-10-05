@@ -62,6 +62,10 @@ export async function sendRegistrationEmail(
   });
   await writeJson(path2, registrationRequests);
 
+  // LOAD SECRETS
+
+  await load({ export: true });
+
   // PREPARE SMTP
 
   const client = new SMTPClient({

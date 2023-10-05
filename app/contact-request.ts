@@ -51,6 +51,9 @@ export async function sendContactEmails(
     message,
   });
   await writeJson(path2, contactRequests);
+  // LOAD SECRETS
+
+  await load({ export: true });
 
   // PREPARE SMTP
 
