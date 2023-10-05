@@ -9,10 +9,10 @@ export async function sendContactEmails(
   email: string,
   message: string
 ): Promise<Response> {
-  console.log("sendContactEmails()");
-  console.log({ name });
-  console.log({ email });
-  console.log({ message });
+  log.debug("sendContactEmails()");
+  log.debug({ name });
+  log.debug({ email });
+  log.debug({ message });
 
   // EMAIL SANITY CHECK
 
@@ -31,9 +31,9 @@ export async function sendContactEmails(
   const metrics: any = (await existsSync(path1))
     ? await getJson(path1)
     : { contactCount: 0, registrationCount: 0 };
-  console.log({ metrics });
+  log.debug({ metrics });
   const count: number = metrics.contactCount + 1;
-  console.log({ count });
+  log.debug({ count });
   metrics.contactCount = count;
   await writeJson(path1, metrics);
 

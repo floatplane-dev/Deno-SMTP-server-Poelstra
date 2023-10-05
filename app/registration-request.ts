@@ -16,17 +16,17 @@ export async function sendRegistrationEmail(
   agreed1: boolean,
   agreed2: boolean
 ): Promise<Response> {
-  console.log("sendRegistrationEmail()");
-  console.log({ firstName });
-  console.log({ lastName });
-  console.log({ gender });
-  console.log({ dob });
-  console.log({ address });
-  console.log({ email });
-  console.log({ phone });
-  console.log({ bsn });
-  console.log({ agreed1 });
-  console.log({ agreed2 });
+  log.debug("sendRegistrationEmail()");
+  log.debug({ firstName });
+  log.debug({ lastName });
+  log.debug({ gender });
+  log.debug({ dob });
+  log.debug({ address });
+  log.debug({ email });
+  log.debug({ phone });
+  log.debug({ bsn });
+  log.debug({ agreed1 });
+  log.debug({ agreed2 });
 
   // GET AND INCREMENT THE COUNTER
 
@@ -34,9 +34,9 @@ export async function sendRegistrationEmail(
   const metrics: any = (await existsSync(path1))
     ? await getJson(path1)
     : { contactCount: 0, registrationCount: 0 };
-  console.log({ metrics });
+  log.debug({ metrics });
   const count: number = metrics.registrationCount + 1;
-  console.log({ count });
+  log.debug({ count });
   metrics.registrationCount = count;
   await writeJson(path1, metrics);
 
