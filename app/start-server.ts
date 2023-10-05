@@ -4,6 +4,7 @@ import { branch, commit } from "https://deno.land/x/ci/mod.ts";
 import { response } from "./helpers.ts";
 import { sendContactEmails } from "./contact-request.ts";
 import { sendRegistrationEmail } from "./registration-request.ts";
+import { sendSanityEmail } from "./sanity-email.ts";
 
 await log.setup({
   handlers: {
@@ -76,6 +77,10 @@ const onRequest = async function (req: Request): Promise<Response> {
         agreed1,
         agreed2
       );
+    }
+
+    if (url.pathname === "/sanity-email") {
+      return sendSanityEmail();
     }
 
     return response(404, { error: "invalid path" });
