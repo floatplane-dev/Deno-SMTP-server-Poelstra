@@ -1,4 +1,4 @@
-import * as log from "https://deno.land/std@0.172.0/log/mod.ts";
+import * as log from "https://deno.land/std@0.203.0/log/mod.ts";
 
 export function response(status: number, _body: any, _headers?: any): Response {
   const body: string = JSON.stringify(_body);

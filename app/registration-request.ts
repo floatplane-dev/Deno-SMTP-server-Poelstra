@@ -1,7 +1,8 @@
-import "https://deno.land/x/dotenv/load.ts";
-import { SMTPClient } from "https://deno.land/x/denomailer/mod.ts";
+import * as log from "https://deno.land/std@0.203.0/log/mod.ts";
+import { load } from "https://deno.land/std@0.203.0/dotenv/mod.ts";
+import { existsSync } from "https://deno.land/std@0.203.0/fs/mod.ts";
+import { SMTPClient } from "https://deno.land/x/denomailer@1.6.0/mod.ts";
 import { response, getJson, writeJson } from "./helpers.ts";
-import { existsSync } from "https://deno.land/std/fs/mod.ts";
 
 export async function sendRegistrationEmail(
   firstName: string,

@@ -1,5 +1,5 @@
-import * as log from "https://deno.land/std@0.172.0/log/mod.ts";
-import { Server } from "https://deno.land/std@0.172.0/http/server.ts";
+import * as log from "https://deno.land/std@0.203.0/log/mod.ts";
+import { Server } from "https://deno.land/std@0.203.0/http/server.ts";
 import { branch, commit } from "https://deno.land/x/ci/mod.ts";
 import { response } from "./helpers.ts";
 import { sendContactEmails } from "./contact-request.ts";
